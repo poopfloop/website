@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <title>Derradji Telecom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <!--up-->
+  <a href="#" class="gotop"> <i class="fa-solid fa-arrow-up"></i> </a>
+
+  <!--loading-->
+  <div id="loading">
+    <div class="loading"><span>Loading....</span></div>
+  </div>
+
+  <header class="header">
+
+    <a href="#" class="logo"> <img src="img/logo.jpg" alt="" width="90" height="90"></a>
+
+    <nav class="navbar" style="background: var(--bg-color);">
+      <a href="index.html #home">Home</a>
+      <a href="products.html" style="background: var(--bg-color);">Products </a>
+      <a href="promo.html">Promotions </a>
+      <a href="index.html #AboutUs">AboutUs</a>
+      <a href="index.html #services">Services </a>
+      <a href="index.html #ContactUs">ContactUs</a>
+
+    </nav>
+
+    <div class="icons">
+
+      <div class="open fa-solid fa-bars " id="icon"></div>
+      <a href="cart.html" class="fas fa-shopping-cart" id="icon"></a>
+      <a href="register.html" class="btn" id="registerbtn">register</a>
+
+    </div>
+
+  </header>
+
+
+
+  <section class="wrapper">
+    <div class="CONNECT">
+      <!--login form-->
+      <div class="login" id="login">
+        <img src="img/logo.jpg" alt="" width="100" height="80">
+        <form class="login-form" onsubmit="handleLogin(event)">
+          <label for="chk" aria-hidden="true">LOG IN</label>
+          <input type="email" name="email" placeholder="Email" required="" id="email" onkeyup="validatermail()">
+          <span id="email-error"></span>
+          <div class="input-field">
+            <input type="password" name="password" placeholder="Password" required="" id="password"
+              onkeyup="validatepassword()">
+            <span id="password-error"></span>
+          </div>
+          <button>Login</button>
+          <div style="text-align: center;margin-block: 15px;">
+            <span id="loginError" style="color: red ;font-size: 16px;font-weight: bold;"></span>
+          </div>
+
+          <div class="sign-up">
+            <p> <a href="#" class="signuplink" onclick="register()">register here!</a>
+              ألديك حساب ؟
+            </p>
+          </div>
+        </form>
+      </div>
+      <!--register form-->
+      <div class="SIGNUP" id="register">
+        <img src="img/logo.jpg" alt="" width="100" height="80">
+        <form class="register-form" onsubmit="handleRegister(event)">
+          <label for="chk" aria-hidden="true">SIGN UP</label>
+          <input type="firstname" name="firstname" placeholder="first name" required="" id="firstname"
+            onkeyup="validateusername()">
+          <span id="name-error"></span>
+          <input type="lastname" name="lastname" placeholder="last name" required="" id="lastname"
+            onkeyup="validateusername()">
+          <span id="name-error"></span>
+          <input type="email" name="email" placeholder="Email" required="" id="email" onkeyup="validateemail()">
+          <span id="email-error"></span>
+          <div class="input-field">
+            <input type="password" name="password" placeholder="Password" required="" id="password"
+              onkeyup="validatepassword()">
+            <span id="password-error"></span>
+          </div>
+          <div class="input-field">
+            <input type="password" name="password_confirmation" placeholder="Password again" required=""
+              id="password_confirmation" onkeyup="validatepassword()">
+            <span id="password-error"></span>
+          </div>
+          <button type="submit">Sign up</button>
+          <div class="log-in">
+            <p><a href="#" class="loginlink" onclick="login()">login here!</a>
+              ألا تملك حساب ؟
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- home section starts  -->
+  <section class="container" id="home">
+    <div class="left">
+      <!--SWIPER-->
+
+      <div class="css-slider-wrapper">
+        <input type="radio" name="slider" class="slide-radio1" checked id="slider_1">
+        <input type="radio" name="slider" class="slide-radio2" id="slider_2">
+        <input type="radio" name="slider" class="slide-radio3" id="slider_3">
+        <input type="radio" name="slider" class="slide-radio4" id="slider_4">
+        <div class="slider-pagination">
+          <label for="slider_1" class="page1"></label>
+          <label for="slider_2" class="page2"></label>
+          <label for="slider_3" class="page3"></label>
+          <label for="slider_4" class="page4"></label>
+        </div>
+        <div class="next control">
+          <label for="slider_1" class="numb1"><i class="fa fa-arrow-circle-right"></i></label>
+          <label for="slider_2" class="numb2"><i class="fa fa-arrow-circle-right"></i></label>
+          <label for="slider_3" class="numb3"><i class="fa fa-arrow-circle-right"></i></label>
+          <label for="slider_4" class="numb4"><i class="fa fa-arrow-circle-right"></i></label>
+        </div>
+        <div class="previous control">
+          <label for="slider_1" class="numb1"><i class="fa fa-arrow-circle-left"></i></label>
+          <label for="slider_2" class="numb2"><i class="fa fa-arrow-circle-left"></i></label>
+          <label for="slider_3" class="numb3"><i class="fa fa-arrow-circle-left"></i></label>
+          <label for="slider_4" class="numb4"><i class="fa fa-arrow-circle-left"></i></label>
+        </div>
+        <div class="slider slide1">
+          <div>
+            <img src="img/phone.jpg" alt="" width="300" style="  filter: drop-shadow(0 0 0.75rem rgb(74, 74, 74));
+">
+            <div class="bbttn"> <a href="product.html  #PHONES" class="button"><span class="cover"></span>SHOP NOW</a>
+            </div>
+          </div>
+        </div>
+        <div class="slider slide2">
+          <div>
+            <img src="img/aipods.jpg" alt="" width="300" style="  filter: drop-shadow(0 0 0.75rem rgb(79, 78, 78));
+">
+            <div class="bbttn"> <a href="product.html  #CONSOLES" class="button"><span class="cover"></span>SHOP NOW</a>
+            </div>
+          </div>
+        </div>
+        <div class="slider slide3">
+          <div>
+            <img src="img/smrt.jpg" alt="" width="300" style="  filter: drop-shadow(0 0 0.75rem rgb(76, 76, 76));
+">
+            <div class="bbttn"> <a href="product.html  #SMART WATCHES" class="button"><span class="cover"></span>SHOP
+                NOW</a> </div>
+          </div>
+        </div>
+        <div class="slider slide4">
+          <div>
+            <img src="img/tab.jpg" alt="" width="300" style="  filter: drop-shadow(0 0 0.75rem rgb(74, 73, 73));
+">
+            <div class="bbttn"> <a href="product.html  #TABLETES" class="button"><span class="cover"></span>SHOP NOW</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--STORE IMG-->
+    <div class="right">
+      <img src="img/photo.jpg" class="photo">
+    </div>
+  </section>
+
+
+  <section class="footer">
+
+    <div class="box-container">
+
+      <a href="" class="logo"> <img src="img/logo1.png" alt="" width="150" height="150"></a>
+      <div class="box">
+        <a href="index.html #home"> home </a>
+        <a href="index.html #AboutUs"> aboutUs </a>
+        <a href="products.html"> products </a>
+        <a href="index.html #services"> Services </a>
+        <a href="index.html #ContactUs"> contactUs </a>
+      </div>
+
+      <div class="share">
+        <a href="https://www.facebook.com/Derradji.Telecom.DZ/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/derradji_telecom/" class="fab fa-instagram"></a>
+      </div>
+
+    </div>
+
+    <div class="credit"> copyright &copy;
+      <script>document.write(new Date().getFullYear());</script>
+    </div>
+
+  </section>
+
+  <script>
+    var loader = document.getElementById("loading");
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    })
+  </script>
+
+  <script>
+
+    function myMenuFunction() {
+      var i = document.getElementById("navMenu");
+
+      if (i.className === "nav-menu") {
+        i.className += " responsive";
+      } else {
+        i.className = "nav-menu";
+      }
+    }
+
+  </script>
+
+  <script>
+    if (localStorage.getItem('client')) {
+      window.location.href = 'products.html'
+    }
+
+    function handleRegister(event) {
+      const form = document.querySelector('.register-form')
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      // Access form data values
+      const firstname = formData.get('firstname');
+      const lastname = formData.get('lastname');
+      const email = formData.get('email');
+      const password = formData.get('password');
+      const password_confirmation = formData.get('password_confirmation');
+
+      axios.post('http://127.0.0.1:8000/api/auth/client/register', {
+        firstname,
+        lastname,
+        email,
+        password,
+        password_confirmation,
+
+      })
+        .then((response) => {
+          const { client, token } = response.data;
+          localStorage.setItem('client', JSON.stringify(client));
+          localStorage.setItem('token', token);
+          window.location.href = 'products.html'
+
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+      // Reset the form
+      form.reset();
+    };
+
+
+
+    function handleLogin(event) {
+      const form = document.querySelector('.login-form')
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      // Access form data values
+      const email = formData.get('email');
+      const password = formData.get('password');
+
+      axios.post('http://127.0.0.1:8000/api/auth/client/login', {
+        email,
+        password,
+
+      })
+        .then((response) => {
+          const { client, token } = response.data;
+          localStorage.setItem('client', JSON.stringify(client));
+          localStorage.setItem('token', token);
+          window.location.href = 'products.html'
+        })
+        .catch(function (error) {
+          var loginError = document.getElementById('loginError');
+
+          // Reset error messages
+          loginError.textContent = '';
+
+          // Check if username is empty
+          loginError.textContent = error.response.data.message;
+          return false;
+        });
+
+      // Reset the form
+      form.reset();
+    };
+
+
+    var a = document.getElementById("loginBtn");
+    var b = document.getElementById("registerBtn");
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+
+    function login() {
+      x.style.left = "4px";
+      y.style.right = "-900px";
+      a.className += " white-btn";
+      b.className = "btn";
+      x.style.opacity = 1;
+      y.style.opacity = 0;
+    }
+
+    function register() {
+      x.style.left = "-900px";
+      y.style.right = "5px";
+      a.className = "btn";
+      b.className += " white-btn";
+      x.style.opacity = 0;
+      y.style.opacity = 1;
+    }
+
+
+
+  </script>
+
+  <script>
+    hamburger = document.querySelector(".fa-bars");
+    nav = document.querySelector("nav");
+    hamburger.onclick = function () {
+      nav.classList.toggle("active");
+    }
+
+
+  </script>
+
+
+</body>
+
+</html>

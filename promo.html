@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="Derradji Telecom" href="img/derradji.png">
+  <title>Derradji Telecom</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <style>
+    .wrapper1 {
+      width: 100%;
+      padding: 20px;
+      margin: 20px;
+      position: relative;
+    }
+
+    .wrapper1 #right,
+    .wrapper1 #left {
+      top: 50%;
+      height: 50px;
+      width: 50px;
+      cursor: pointer;
+      font-size: 1.25rem;
+      position: absolute;
+      text-align: center;
+      line-height: 50px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+      transform: translateY(-50%);
+      transition: transform 0.1s linear;
+      z-index: 100;
+    }
+
+    .wrapper1 i:active {
+      transform: translateY(-50%) scale(0.85);
+    }
+
+    .wrapper1 i:first-child {
+      left: 22px;
+    }
+
+    .wrapper1 i:last-child {
+      right: 22px;
+    }
+
+    .wrapper1 .carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% / 5) - 12px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 16px;
+      border-radius: 8px;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: flow-root;
+    }
+
+    .carousel.no-transition {
+      scroll-behavior: auto;
+    }
+
+    .carousel.dragging {
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+    }
+
+    .carousel.dragging .product-box {
+      cursor: grab;
+      user-select: none;
+    }
+
+    .carousel :where(.product-box, .img) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .slider-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: right;
+      width: 150px;
+      height: 40px;
+      text-align: center;
+      border-radius: 30px;
+      background: var(--second-color);
+      padding: 0.5rem;
+      margin: 2rem;
+      transition: .5s ease;
+      box-shadow: 3px 3px 3px -1px var(--text-color),
+        -3px -3px 3px -1px rgba(255, 255, 255, 0.70);
+    }
+
+    .slider-heading h3 {
+      font-size: 2rem;
+      color: var(--text-color);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 15px;
+      text-transform: capitalize;
+    }
+
+    .carousel .product-box {
+      scroll-snap-align: start;
+      height: 342px;
+      list-style: none;
+      background: #e8e9e9;
+      cursor: pointer;
+      padding-bottom: 3px;
+      flex-direction: column;
+      border-radius: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .carousel .product-box .img {
+      height: 150px;
+      width: 150px;
+    }
+
+    .product-box .img img {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      padding: 10px 0;
+      object-fit: contain;
+      object-position: center;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 0.75rem #fff6f6);
+    }
+
+    .carousel .product-box h2 {
+      font-weight: 500;
+      font-size: 2rem;
+      margin: 30px 0 5px;
+    }
+
+    .carousel .product-box strong {
+      padding-top: 15px;
+      color: var(--text-color);
+      font-size: 2rem;
+      text-shadow: #fff;
+    }
+
+    .carousel .product-box span {
+      color: var(--main-color);
+      font-size: 2rem;
+      text-shadow: #fff;
+    }
+
+    @media screen and (max-width: 900px) {
+      .wrapper1 .carousel {
+        grid-auto-columns: calc((100% / 3) - 9px);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .wrapper1 .carousel {
+        grid-auto-columns: calc((100% / 2) - 9px);
+      }
+    }
+  </style>
+
+
+</head>
+
+<body style="background-color: var(--bg-color);">
+  <!--top page-->
+  <a href="#" class="gotop"> <i class="fa-solid fa-arrow-up"></i> </a>
+
+
+  <!--loading-->
+  <div id="loading">
+    <div class="loading"><span>Loading....</span></div>
+  </div>
+
+  <!--header-->
+  <header class="header" style="background: var(--bg-color);">
+    <!--logo-->
+    <a href="#" class="logo"> <img src="img/logo.jpg" alt="" width="90" height="90"></a>
+    <!--navbar-->
+    <nav class="navbar" style="background: var(--bg-color);">
+      <a href="index.html#home">Home</a>
+      <a href="products.html" style="background: var(--bg-color);">Products </a>
+      <a href="promo.html" class="active">Promotions </a>
+      <a href="index.html#AboutUs">AboutUs</a>
+      <a href="index.html#services">Services </a>
+      <a href="index.html#ContactUs">ContactUs</a>
+
+    </nav>
+    <!--icons-->
+    <div class="icons">
+      <div class="open fa-solid fa-bars " id="icon"></div>
+      <div class="close fa-solid fa-xmark " id="icon"></div>
+      <a href="cart.html" class="fas fa-shopping-cart" id="icon"></a>
+      <a href="register.html" class="btn"><span class="cover"></span>register</a>
+    </div>
+  </header>
+  <!--main section-->
+  <main>
+    <nav id="nav">
+      <div class="navTop">
+
+        <!--search bar-->
+        <div class="navItem">
+          <div class="search">
+            <form action="" id="searchForm">
+              <input type="text" placeholder="Search.." name="search" id="searchInput">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!--filter-->
+      <div class="navBottom">
+
+        <!--categories-->
+        <div class="dropdown">
+
+          <button class="dropbtn">ALL
+
+            <i class="fa fa-caret-down" id="down"></i>
+            <div class="dropdown-content">
+              <a href="products.html  #PHONES">PHONES</a>
+              <a href="products.html  #TABLETES">TABLETES</a>
+              <a href="products.html  # SMART WATCHES"> SMART WATCHES</a>
+              <a href="products.html  #CONSOLES">CONSOLES</a>
+            </div>
+        </div>
+        </button>
+
+        <!--prmotions page-->
+        <div>
+          <a href="promo.html">PROMO</a>
+        </div>
+      </div>
+    </nav>
+  </main>
+  <!--brands-->
+  <section id="brand" class="container">
+
+    <div class="row ">
+      <img src="img/huawei.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt=" ">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/oppo.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/samsung.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/oppo.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+
+    </div>
+    <div class="row ">
+      <img src="img/huawei.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt=" ">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/oppo.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/samsung.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/oppo.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/iphone.png" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+      <img src="img/redmi.jpeg" class="img-fluid col-lg-2 col-md-4 col-5" alt="">
+    </div>
+
+  </section>
+
+  <!--PROMOTIONS SECTION-->
+  <section>
+    <!--PROMOTIONS SLIDER-->
+    <div class="product-slider">
+      <!--heading-->
+      <h3 class="slider-heading" id="PROMOTIONS">PROMOTIONS</h3>
+      <br><br><br><br><br>
+      <!--PROMOTIONS CONTENT-->
+
+      <div class="wrapper1" id="wrapper1">
+        <i id="left" class="fa-solid fa-angle-left"></i>
+        <ul class="carousel" id="carousel">
+          <li class="product-box" onclick="window.location.href='product.html'; " id="product-box">
+            <!--PRODUCT IMG-->
+            <div class="img"><img src="img/phone.jpg" alt=""></div>
+            <!--PRODUCT DESC-->
+            <strong>redmi</strong>
+            <div class="buy-price">
+              <span class="price" style="color: var(--text-color);">200000</span><span class="actual-price"
+                style=" text-decoration: line-through;">300000</span>
+              <h3> متوفر </h3>
+            </div>
+            <!--ADD O CART BUTTON-->
+            <div class="buy">
+              <a href="#" class="buy-btn"><span class="cover"></span> <i class="fas fa-shopping-cart"></i> </a>
+            </div>
+            <!--DISCOUNT PRICE-->
+            <div class="off-info">
+              <h3 class="sm-title">-25%</h3>
+            </div>
+          </li>
+          <li class="product-box" onclick="window.location.href='product.html'; " id="product-box">
+            <!--PRODUCT IMG-->
+            <div class="img"><img src="img/phone.jpg" alt=""></div>
+            <!--PRODUCT DESC-->
+            <strong>redmi</strong>
+            <div class="buy-price">
+              <span class="price" style="color: var(--text-color);">200000</span><span class="actual-price"
+                style=" text-decoration: line-through;"">300000</span>
+                  <h3> متوفر </h3>
+                </div>
+                <!--ADD O CART BUTTON-->
+                <div class=" buy">
+                <a href="#" class="buy-btn"><span class="cover"></span> <i class="fas fa-shopping-cart"></i> </a>
+            </div>
+            <!--DISCOUNT PRICE-->
+            <div class="off-info">
+              <h3 class="sm-title">-15%</h3>
+            </div>
+          </li>
+          <li class="product-box" onclick="window.location.href='product.html'; " id="product-box">
+            <!--PRODUCT IMG-->
+            <div class="img"><img src="img/phone.jpg" alt=""></div>
+            <!--PRODUCT DESC-->
+            <strong>redmi</strong>
+            <div class="buy-price">
+              <span class="price" style="color: var(--text-color);">200000</span><span class="actual-price"
+                style=" text-decoration: line-through;"">300000</span>
+              <h3> متوفر </h3>
+            </div>
+            <!--ADD O CART BUTTON-->
+            <div class=" buy">
+                <a href="#" class="buy-btn"><span class="cover"></span> <i class="fas fa-shopping-cart"></i> </a>
+            </div>
+            <!--DISCOUNT PRICE-->
+            <div class="off-info">
+              <h3 class="sm-title">-25%</h3>
+            </div>
+          </li>
+        </ul>
+        <i id="right" class="fa-solid fa-angle-right"></i>
+      </div>
+    </div>
+  </section>
+
+  <!--footer-->
+  <section class="footer">
+
+    <div class="box-container">
+
+      <!--logo-->
+      <a href="" class="logo"> <img src="img/logo1.png" alt="" width="150" height="150"></a>
+      <!--links-->
+      <div class="box">
+        <a href="index.html #home"> home </a>
+        <a href="index.html #AboutUs"> aboutUs </a>
+        <a href="products.html"> products </a>
+        <a href="index.html #services"> Services </a>
+        <a href="index.html #ContactUs"> contactUs </a>
+      </div>
+
+      <!--share-->
+      <div class="share">
+        <a href="https://www.facebook.com/Derradji.Telecom.DZ/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/Derradji_Telecom.DZ/" class="fab fa-instagram"></a>
+      </div>
+
+    </div>
+
+    <div class="credit"> copyright &copy;
+      <script>document.write(new Date().getFullYear());</script>
+    </div>
+
+  </section>
+
+
+
+  <script src="product.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightslider/1.1.6/js/lightslider.min.js"
+    integrity="sha512-Gfrxsz93rxFuB7KSYlln3wFqBaXUc1jtt3dGCp+2jTb563qYvnUBM/GP2ZUtRC27STN/zUamFtVFAIsRFoT6/w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    const searchForm = document.querySelector('#searchForm');
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault()
+      fetchData();
+    })
+    const searchInput = document.querySelector('#searchInput');
+    let searchQuery = "";
+    searchInput.addEventListener('input', (event) => {
+      searchQuery = event.target.value;
+    })
+
+    function fetchData() {
+      axios.get(`http://127.0.0.1:8000/api/categories/discounted?q=${searchQuery}`)
+        .then((response) => {
+          console.log(response);
+          displayData(response.data.categories);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+    }
+
+    fetchData();
+
+    function displayData(categories) {
+      const container = document.querySelector('.product-slider');
+      container.innerHTML = '';
+      categories.forEach(function (category, index) {
+        const title = document.createElement('h3');
+        title.classList = 'slider-heading';
+        title.textContent = category.name;
+        container.appendChild(title);
+        new Array(4).fill(0).map((el) => {
+          const breakLine = document.createElement('br');
+          return container.appendChild(breakLine)
+        })
+        const divElement = document.createElement('div');
+        divElement.className = 'wrapper1';
+        console.log(category.products.length);
+        if (category.products.length == 0) {
+          divElement.innerHTML = `
+            <div style="height: 100%; display: flex;align-items: center;justify-content: center;">
+              <span style="font-size: 32px;font-weight: 600; color: #121212;">No products available</span>
+            </div>`
+          container.appendChild(divElement);
+        } else {
+          divElement.innerHTML = `
+            <i id="left" class="fa-solid fa-angle-left"></i>
+              <ul class="carousel" id="carousel${index}">
+              </ul>
+            <i id="right" class="fa-solid fa-angle-right"></i>`;
+          container.appendChild(divElement);
+        }
+
+        const list = document.getElementById('carousel' + index);
+        category.products.forEach(function (product) {
+          list.innerHTML +=
+            `
+               <li class="product-box" onclick="window.location.href='product.html?product=${product.id}'; " id="product-box">
+            <!--PRODUCT IMG-->
+               <div class="img"><img src="http://localhost:8000/storage/images/products/${product.images[0].name}" alt=""></div> 
+            <!--PRODUCT DESC-->
+              <strong>${product.name}</strong>
+            <div class="buy-price">
+              <span class="price" style="color: var(--text-color);">${product.promotion_price}</span><span class="actual-price"
+                style=" text-decoration: line-through;">${product.price}</span>
+              <h3> متوفر </h3>
+            </div>
+            <!--ADD O CART BUTTON-->
+            <div class="buy">
+              <a href="#" class="buy-btn"><span class="cover"></span> <i class="fas fa-shopping-cart"></i> </a>
+            </div>
+            <!--DISCOUNT PRICE-->
+            <div class="off-info">
+              <h3 class="sm-title">${Math.floor(((product.price - product.promotion_price) * 100) / product.price)}%</h3>
+            </div>
+          </li>`
+        })
+      });
+    }
+
+
+    var loader = document.getElementById("loading");
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    })
+  </script>
+  <script>
+    hamburger = document.querySelector(".fa-bars");
+    nav = document.querySelector("nav");
+    hamburger.onclick = function () {
+      nav.classList.toggle("active");
+    }
+  </script>
+</body>
+
+</html>

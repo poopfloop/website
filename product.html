@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="img/derradji.png">
+  <title>Derradji Telecom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body style="background-color: var(--bg-color);">
+
+  <!--up-->
+  <a href="#" class="gotop"> <i class="fas fa-arrow-up"></i> </a>
+
+  <!--loading-->
+  <div id="loading">
+    <div class="loading"><span>Loading....</span></div>
+  </div>
+
+  <header class="header" style="background: var(--bg-color);">
+
+    <a href="#" class="logo"> <img src="img/logo.jpg" alt="" width="90" height="90"></a>
+
+    <nav class="navbar" style="background: var(--bg-color);">
+      <a href="index.html#home">Home</a>
+      <a href="products.html" class="active" style="background: var(--bg-color);">Products </a>
+      <a href="index.html#AboutUs">AboutUs</a>
+      <a href="index.html#services">Services </a>
+      <a href="index.html#ContactUs">ContactUs</a>
+    </nav>
+
+    <div class="icons">
+      <div class="open fa-bars" id="icon"></div>
+      <a href="cart.html" class="fas fa-shopping-cart" id="icon"></a>
+      <a href="register.html" class="btn" id="registerbtn" onclick="register()">register</a>
+    </div>
+
+  </header>
+
+  <main class="main">
+    <div class="card-wrapper">
+      <div class="card cart-item">
+        <!-- card left -->
+        <div class="product-imgs">
+
+        </div>
+        <!-- card right -->
+        <div class="product-details">
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="footer">
+    <div class="box-container">
+      <a href="" class="logo"> <img src="img/logo1.png" alt="" width="150" height="150"></a>
+      <div class="box">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#AboutUs">AboutUs</a>
+        <a href="products.html">Products</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#ContactUs">ContactUs</a>
+      </div>
+      <div class="share">
+        <a href="https://www.facebook.com/Derradji.Telecom.DZ/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/derradji_telecom/" class="fab fa-instagram"></a>
+      </div>
+    </div>
+    <div class="credit">©
+      <script>document.write(new Date().getFullYear());</script> Derradji Telecom. All rights reserved.
+    </div>
+  </section>
+
+  <script src="product.js"></script>
+
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const productID = urlParams.get('product');
+    axios.get('http://127.0.0.1:8000/api/products/get/' + productID)
+      .then((response) => {
+        displayProductData(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+    const displayProductData = (product) => {
+      const productContainer = `
+    <div class="product-id" style="display:none" data-id="${product.id}"></div>
+         <div class="product-price">
+                <span class="price" style="color: var(--text-color); text-decoration:none;">${product.promotion_price} DA</span><br/><span class="actual-price"
+                style=" text-decoration: line-through;">${product.price} DA</span>
+          </div>
+          <div style="text-align: center;">
+            <h2 class="product-title">${product.name}</h2>
+          </div>
+          <div class="product-detail">
+            <h2 style="text-align: center;">About this product:</h2>
+            ${JSON.parse(product.features).map(feature => { return ` <p> ${feature}</p>` })}
+          </div>
+          <div class="size-container" style="text-align: center;">
+            <h6 class="title">Quantity:</h6>
+            <div class="sizes">
+              <input type="number" value="1" id="quantity" min="1">
+            </div>
+          </div>
+          <div class="purchase-info">
+            <button id="add-to-cart" class="buy-btn" onclick="addToCart()"><i class="fas fa-shopping-cart"></i></button>
+        </div>`;
+      document.querySelector('.product-details').innerHTML = productContainer;
+      const productsImages = ` <div class="img-display">
+            <div class="img-showcase">
+              ${product.images.map(image => {
+        return `
+                <img src="http://127.0.0.1:8000/storage/images/products/${image.name}" class="img-product">
+                `})}
+            </div>
+          </div>
+          <div class="img-select">
+            ${product.images.map((image, index) => {
+          return `
+                   <div class="img-item">
+              <a href="#" data-id="${index + 1}">
+                <img src="http://127.0.0.1:8000/storage/images/products/${image.name}" alt="shoe image">
+              </a>
+            </div>
+                `})}
+          </div>`
+      document.querySelector('.product-imgs').innerHTML = productsImages;
+    }
+
+
+
+    var loader = document.getElementById("loading");
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    });
+  </script>
+  <script>
+    hamburger = document.querySelector(".fa-bars");
+    nav = document.querySelector("nav");
+    hamburger.onclick = function () {
+      nav.classList.toggle("active");
+    }
+  </script>
+  <script src="cart.js"></script>
+</body>
+
+</html>

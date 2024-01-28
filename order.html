@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="Derradji Telecom" href="img/derradji.png">
+    <title>Derradji Telecom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <!--up-->
+  <a href="#" class="gotop"> <i class="fa-solid fa-arrow-up"></i> </a>
+
+  <!--loading-->
+  <div id="loading"> <div class="loading"><span>Loading....</span></div></div>
+
+  <header class="header">
+
+    <a href="#" class="logo"> <img src="img/logo.jpg" alt="" width="90" height="90" ></a>
+       
+    <nav class="navbar open">
+
+  
+        <a href="index.html#home">Home</a>
+        <a href="products.html" >Products </a>
+        <a href="promo.html" >Promotions </a>
+        <a href="index.html#AboutUs">AboutUs</a>
+        <a href="index.html#services">Services </a>
+        <a href="index.html#ContactUs">ContactUs</a>
+
+    </nav>
+
+    <div class="icons">
+
+      <div class="fa-solid fa-bars " id="icon"></div>
+        <a href="cart.html" class="fas fa-shopping-cart" id="icon" ></a>
+        <a href="register.html" class="btn"><span class="cover"></span>register</a>
+        
+    </div>
+
+</header>
+
+<section>
+<div class="container1">
+  <h1 class="form-title">checkout form</h1>
+  <form action="#" class="orderForm" onsubmit="handleSubmit(event)">
+    <div class="main-user-info">
+      <div class="user-input-box">
+        <label for="firstname">Full Name</label>
+        <input type="text"
+                id="firstname"
+                name="firstname"
+                placeholder="Enter Full Name"
+                required/>
+      </div>
+      <div class="user-input-box">
+        <label for="lastname">lastname</label>
+        <input type="text"
+                id="lastname"
+                name="lastname"
+                placeholder="Enter name"
+                required/>
+      </div>
+      <div class="user-input-box">
+        <label for="phone">Phone Number</label>
+        <input type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter Phone Number"
+                required/>
+      </div>
+      <div class="user-input-box">
+        <label for="address">address</label>
+        <input type="address"
+                id="address"
+                name="address"
+                placeholder="Enter address"
+                required/>
+      </div>
+      <div class="user-input-box">
+        <label for="wilaya">wilaya</label>
+        <select class="select"   
+        id="wilaya"
+                name="wilaya"> 
+        <option value="oran">wilaya</option>
+        <option value="oran">Oran</option>
+        <option value="batna">Batna</option>
+        <option value="alger">Alger</option>
+        <option value="skikda">Skikda</option>
+        <option value="jijel">Jijel</option>
+        </select>
+      </div>
+      <div class="user-input-box">
+        <label for="notes">Order Notes (optional)</label>
+        <input type="text"
+                id="notes"
+                name="notes"
+                placeholder="Comment regarding your order"/>
+      </div>
+    </div>
+    
+    
+    <div class="form-submit-btn"><span class="cover"></span>
+        <input type="submit" value="Applay">
+      </div>
+  </form>
+</div>
+</section>
+
+
+<section class="footer" >
+
+  <div class="box-container">
+
+    <a href="#" class="logo"> <img src="img/logo1.png" alt="" width="150" height="150" ></a>
+
+      <div class="box">
+          <a href="#home"> home </a>
+          <a href="#AboutUs"> aboutUs </a>
+          <a href="#products"> products </a>
+          <a href="#services"> Services </a>
+          <a href="#ContactUs"> contactUs </a>
+      </div>
+
+      <div class="share">
+        <a href="https://www.facebook.com/Derradji.Telecom.DZ/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/Derradji_Telecom.DZ/" class="fab fa-instagram"></a>
+      </div>
+
+  </div>
+
+  <div class="credit">  copyright &copy; <script>document.write(new Date().getFullYear());</script> </div>
+</section>
+
+<script src="script.js"></script>
+<script>
+  var loader = document.getElementById("loading");
+  window.addEventListener("load" , function(){
+    loader.style.display="none";
+  });
+  document.getElementById('add-to-cart').addEventListener('click', function() {
+  alert('Thank you for ordering from our shop!');
+});
+</script>
+<script>
+
+  const form = document.querySelector('.orderForm');
+    const products = JSON.parse(localStorage.getItem('cartItems')).map((product) => {
+      return {
+        id:product.id,
+        price:product.price,
+        quantity:product.quantity
+      }
+    });
+  let total = 0;
+   products.forEach((product ) => {
+      const { price, quantity } = product;
+  return total += price * quantity;},0 )
+
+ function handleSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(form);
+
+  // Access form data values
+  const firstname = formData.get('firstname');
+  const lastname = formData.get('lastname');
+  const phone = formData.get('phone');
+  const address = formData.get('address');
+  const wilaya = formData.get('wilaya');
+  const city = formData.get('wilaya');
+  const notes = formData.get('notes');
+
+  formData.append('total',total)
+  formData.append('products',JSON.stringify(products))
+   axios.post('http://127.0.0.1:8000/api/orders/add',{
+    firstname,
+    lastname,
+    phone,
+    address,
+    wilaya,
+    city,
+    notes,
+    total,
+    products
+   })
+  .then( (response) =>  {
+    localStorage.setItem('cartItems',[]);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+  // Reset the form
+  form.reset();
+};
+
+  hamburger = document.querySelector(".fa-bars");
+  nav = document.querySelector("nav");
+  hamburger.onclick = function() {
+      nav.classList.toggle("active");
+  }
+</script>
+</body>
+</html>

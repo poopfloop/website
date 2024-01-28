@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <title>Derradji Telecom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="background-color: var(--bg-color);">
+  <!--top page-->
+  <a href="#" class="gotop"> <i class="fas fa-arrow-up"></i> </a>
+
+
+  <!--loading-->
+  <div id="loading">
+    <div class="loading"><span>Loading....</span></div>
+  </div>
+
+  <!--header-->
+  <header class="header">
+
+    <a href="#" class="logo"> <img src="img/logo.jpg" alt="" width="90" height="90"></a>
+
+    <nav class="navbar" style="background: var(--bg-color);">
+      <a href="index.html#home">Home</a>
+      <a href="products.html" style="background: var(--bg-color);">Products </a>
+      <a href="promo.html">Promotions </a>
+      <a href="index.html#AboutUs">AboutUs</a>
+      <a href="index.html#services">Services </a>
+      <a href="index.html#ContactUs">ContactUs</a>
+
+    </nav>
+
+    <div class="icons">
+
+      <div class="open fa-solid fa-bars " id="icon"></div>
+      <a href="cart.html" class="fas fa-shopping-cart" id="icon"></a>
+      <a href="register.html" class="btn" id="registerbtn" onclick="register()">register</a>
+
+    </div>
+
+  </header>
+
+
+  <!--Cart Section-->
+  <section id="cart">
+    <div class="heading">
+      <h2>Purchase History</h2>
+    </div>
+    <div class="table-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cartItems">
+
+        </tbody>
+      </table>
+    </div>
+    <div class="det">
+      <div class="total">
+        <p class="total-price">Total: <span id="totalAmount">0.00DA</span></p>
+        <button class="buy-btn" onclick="window.location.href='order.html';"><i class="fas fa-shopping-cart"></i>
+        </button>
+      </div>
+      <div class="coupon">
+        <input type="text" class="coupon-code" placeholder="Enter coupon code (Optional)">
+        <button class="apply-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+    </div>
+  </section>
+
+  <!--footer-->
+  <section class="footer">
+
+    <div class="box-container">
+
+      <a href="" class="logo"> <img src="img/logo1.png" alt="" width="150" height="150"></a>
+      <div class="box">
+        <a href="#home"> home </a>
+        <a href="#AboutUs"> aboutUs </a>
+        <a href="#products"> products </a>
+        <a href="#services"> Services </a>
+        <a href="#ContactUs"> contactUs </a>
+      </div>
+
+      <div class="share">
+        <a href="https://www.facebook.com/Derradji.Telecom.DZ/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/Derradji_Telecom.DZ/" class="fab fa-instagram"></a>
+      </div>
+
+    </div>
+
+    <div class="credit"> copyright &copy;
+      <script>document.write(new Date().getFullYear());</script>
+    </div>
+  </section>
+
+  <script src="cart.js"></script>
+  <script>
+    var loader = document.getElementById("loading");
+    window.addEventListener("load", function () {
+      loader.style.display = "none";
+    });
+  </script>
+  <script>
+    hamburger = document.querySelector(".fa-bars");
+    nav = document.querySelector("nav");
+    hamburger.onclick = function () {
+      nav.classList.toggle("active");
+    }
+  </script>
+</body>
+
+</html>
